@@ -425,6 +425,80 @@
             font-weight: 500;
             font-size: var(--small-size);
             color: var(--text-muted);
+        }
+
+        /* ===========================================
+           RADICAL CANDOR 2x2 MATRIX
+           =========================================== */
+        .rc-matrix {
+            display: grid;
+            grid-template-columns: auto 1fr 1fr;
+            grid-template-rows: auto 1fr 1fr;
+            gap: 0;
+            width: min(88vw, 640px);
+            height: min(52vh, 380px);
+            position: relative;
+        }
+
+        .rc-axis-label {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: clamp(0.55rem, 0.85vw, 0.75rem);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rc-axis-y {
+            grid-column: 1;
+            grid-row: 2 / 4;
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+            padding-right: clamp(0.4rem, 0.8vw, 0.75rem);
+        }
+
+        .rc-axis-x {
+            grid-column: 2 / 4;
+            grid-row: 1;
+            padding-bottom: clamp(0.3rem, 0.6vh, 0.5rem);
+        }
+
+        .rc-corner {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        .rc-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(0.5rem, 1.2vw, 1rem);
+            text-align: center;
+            border: 1px solid var(--accent-warm);
+        }
+
+        .rc-cell h3 {
+            font-size: clamp(0.8rem, 1.4vw, 1.1rem);
+            margin-bottom: clamp(0.15rem, 0.4vh, 0.3rem);
+        }
+
+        .rc-cell p {
+            font-size: clamp(0.6rem, 0.9vw, 0.78rem);
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .rc-cell.rc-highlight {
+            background: var(--accent-rust-light);
+            border-color: var(--accent-rust);
+        }
+
+        .rc-cell.rc-highlight h3 {
+            color: var(--accent-rust);
             margin-top: clamp(0.75rem, 1.5vh, 1.5rem);
             text-transform: uppercase;
             letter-spacing: 0.1em;
@@ -726,7 +800,7 @@
         <div class="geo-circle" style="top: 12%; left: 5%; width: clamp(40px, 6vw, 80px); height: clamp(40px, 6vw, 80px);"></div>
         <div class="centered-content">
             <p class="eyebrow reveal">The Pivot</p>
-            <h2 class="reveal">Two planes, <em>mid-air</em></h2>
+            <h2 class="reveal">Always a way, keep going</h2>
             <p class="body-text reveal" style="text-align: center; margin-top: var(--element-gap);">We were flying one plane and had to build the other — then jump.</p>
             <img src="assets/exit-intel-to-amped.png" alt="Exit Intel biplane jumping to Amped jet - plane type denotes product capabilities and ability to scale" class="planes-diagram-img reveal" style="margin-top: var(--content-gap);">
             <p class="plane-label reveal">Be mindful about how your business will scale into the future</p>
@@ -777,11 +851,31 @@
         <div class="geo-circle" style="bottom: 15%; right: 10%; width: clamp(50px, 8vw, 100px); height: clamp(50px, 8vw, 100px);"></div>
         <div class="geo-dot" style="top: 20%; left: 12%;"></div>
         <div class="centered-content">
-            <div class="quote-block reveal">
-                "Why didn't you tell me?"
+            <p class="eyebrow reveal">Radical Candor &middot; Kim Scott</p>
+            <h2 class="reveal" style="margin-bottom: var(--content-gap);">The <em>Candor</em> Matrix</h2>
+            <div class="rc-matrix reveal">
+                <div class="rc-corner"></div>
+                <div class="rc-axis-label rc-axis-x">Challenge Directly &rarr;</div>
+                <div class="rc-axis-label rc-axis-y">Care Personally &rarr;</div>
+
+                <div class="rc-cell">
+                    <h3>Ruinous Empathy</h3>
+                    <p>You care but don't challenge. You're "nice" but not helpful. Problems fester.</p>
+                </div>
+                <div class="rc-cell rc-highlight">
+                    <h3>Radical Candor</h3>
+                    <p>Care personally AND challenge directly. The goal. Kind and clear.</p>
+                </div>
+
+                <div class="rc-cell">
+                    <h3>Manipulative Insincerity</h3>
+                    <p>Neither caring nor challenging. Passive-aggressive or politically motivated.</p>
+                </div>
+                <div class="rc-cell">
+                    <h3>Obnoxious Aggression</h3>
+                    <p>You challenge but don't care. Brutal honesty without empathy.</p>
+                </div>
             </div>
-            <p class="quote-attribution reveal">— The wake-up call from Radical Candor by Kim Scott</p>
-            <p class="body-text reveal" style="text-align: center; margin-top: var(--content-gap);">She had high expectations for a hire. He wasn't performing. She kept not saying anything. When she finally had to let him go — that was his response. She should have been telling him all along.</p>
         </div>
     </section>
 
