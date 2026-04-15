@@ -672,6 +672,29 @@
         }
 
         .positive { color: var(--accent-teal) !important; }
+
+        .cashflow-table tr.sub-row td:first-child {
+            padding-left: clamp(1.2rem, 2.2vw, 2rem);
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: clamp(0.55rem, 0.9vw, 0.72rem);
+        }
+
+        .cashflow-table tr.sub-row td {
+            border-bottom: 1px dashed rgba(200, 180, 160, 0.4);
+            color: var(--text-muted);
+            font-size: clamp(0.55rem, 0.9vw, 0.72rem);
+        }
+
+        .cashflow-table tr.subtotal-row td:first-child {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .cashflow-table tr.subtotal-row td {
+            border-bottom: 1.5px solid var(--accent-warm);
+            font-weight: 600;
+        }
         .negative { color: var(--accent-rust) !important; }
 
         /* ===========================================
@@ -846,10 +869,10 @@
         <div class="section-num" style="top: 5%; right: 8%;">01</div>
         <div class="geo-outline-rect" style="bottom: 10%; right: 8%; width: clamp(60px, 8vw, 100px); height: clamp(40px, 5vw, 70px);"></div>
         <div class="left-content">
-            <p class="eyebrow reveal">My Journey</p>
-            <h2 class="reveal">My J</em></h2>
+            <p class="eyebrow reveal">Iterative Progression</p>
+            <h2 class="reveal">My Journey</em></h2>
             <ul class="lesson-list reveal" style="margin-top: var(--content-gap);">
-                <li>Started with the entrepreneurial itch right here at UNCW</li>
+                <li>Websites -> Marketing Agency -> Multiple Startups</li>
                 <li>Built Exit Intel — got to $2M revenue, but couldn't scale past it</li>
                 <li>Rebuilt from scratch as Amped — a true SaaS platform</li>
                 <li>Grew Amped, acquired by Intuit Mailchimp for $16.9M</li>
@@ -1103,7 +1126,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr class="sub-row">
+                            <td># Customers</td>
+                            <td>12</td>
+                            <td>19</td>
+                            <td>26</td>
+                            <td>35</td>
+                            <td>48</td>
+                            <td>64</td>
+                        </tr>
+                        <tr class="sub-row">
+                            <td>ARPU</td>
+                            <td>$200</td>
+                            <td>$200</td>
+                            <td>$200</td>
+                            <td>$203</td>
+                            <td>$198</td>
+                            <td>$200</td>
+                        </tr>
+                        <tr class="subtotal-row">
                             <td>Revenue</td>
                             <td>$2,400</td>
                             <td>$3,800</td>
@@ -1112,7 +1153,43 @@
                             <td>$9,500</td>
                             <td>$12,800</td>
                         </tr>
-                        <tr>
+                        <tr class="sub-row">
+                            <td>Payroll</td>
+                            <td class="negative">($2,000)</td>
+                            <td class="negative">($2,000)</td>
+                            <td class="negative">($2,000)</td>
+                            <td class="negative">($2,200)</td>
+                            <td class="negative">($2,200)</td>
+                            <td class="negative">($2,500)</td>
+                        </tr>
+                        <tr class="sub-row">
+                            <td>Software / Tools</td>
+                            <td class="negative">($800)</td>
+                            <td class="negative">($800)</td>
+                            <td class="negative">($900)</td>
+                            <td class="negative">($900)</td>
+                            <td class="negative">($1,000)</td>
+                            <td class="negative">($1,000)</td>
+                        </tr>
+                        <tr class="sub-row">
+                            <td>Marketing</td>
+                            <td class="negative">($600)</td>
+                            <td class="negative">($800)</td>
+                            <td class="negative">($1,000)</td>
+                            <td class="negative">($1,000)</td>
+                            <td class="negative">($1,200)</td>
+                            <td class="negative">($1,200)</td>
+                        </tr>
+                        <tr class="sub-row">
+                            <td>Other</td>
+                            <td class="negative">($800)</td>
+                            <td class="negative">($900)</td>
+                            <td class="negative">($900)</td>
+                            <td class="negative">($1,000)</td>
+                            <td class="negative">($1,000)</td>
+                            <td class="negative">($1,100)</td>
+                        </tr>
+                        <tr class="subtotal-row">
                             <td>Expenses</td>
                             <td class="negative">($4,200)</td>
                             <td class="negative">($4,500)</td>
