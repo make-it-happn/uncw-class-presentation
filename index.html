@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From UNCW to Acquisition — Matt Cimino</title>
+
+    <!-- Fonts: Fraunces (display serif) + Work Sans (body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES (THEME)
+           Vintage Editorial — warm, personality-driven
+           =========================================== */
+        :root {
+            /* Colors */
+            --bg-cream: #faf5ee;
+            --bg-warm: #f3ebe0;
+            --text-primary: #1a1a1a;
+            --text-secondary: #555;
+            --text-muted: #888;
+            --accent-rust: #c85a3a;
+            --accent-rust-light: rgba(200, 90, 58, 0.12);
+            --accent-warm: #e8d4c0;
+            --accent-teal: #2a6a5e;
+
+            /* Typography — MUST use clamp() */
+            --font-display: 'Fraunces', serif;
+            --font-body: 'Work Sans', sans-serif;
+            --title-size: clamp(2rem, 6vw, 5rem);
+            --h2-size: clamp(1.5rem, 4vw, 3rem);
+            --h3-size: clamp(1.1rem, 2.2vw, 1.5rem);
+            --body-size: clamp(0.8rem, 1.4vw, 1.1rem);
+            --small-size: clamp(0.65rem, 1vw, 0.85rem);
+            --eyebrow-size: clamp(0.6rem, 0.9vw, 0.8rem);
+
+            /* Spacing — MUST use clamp() */
+            --slide-padding: clamp(2rem, 5vw, 5rem);
+            --content-gap: clamp(1rem, 2.5vw, 2.5rem);
+            --element-gap: clamp(0.5rem, 1.2vw, 1rem);
+
+            /* Animation */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.7s;
+        }
+
+        /* ===========================================
+           BASE STYLES
+           =========================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* === VIEWPORT-BASE.CSS (MANDATORY) === */
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            padding: var(--slide-padding);
+        }
+
+        .card, .container, .content-box {
+            max-width: min(90vw, 1000px);
+            max-height: min(80vh, 700px);
+        }
+
+        .feature-list, .bullet-list {
+            gap: clamp(0.4rem, 1vh, 1rem);
+        }
+
+        .feature-list li, .bullet-list li {
+            font-size: var(--body-size);
+            line-height: 1.4;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+        }
+
+        img, .image-container {
+            max-width: 100%;
+            max-height: min(50vh, 400px);
+            object-fit: contain;
+        }
+
+        /* Short viewports (< 700px height) */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(1rem, 3vw, 2.5rem);
+                --content-gap: clamp(0.5rem, 1.5vw, 1rem);
+                --title-size: clamp(1.5rem, 5vw, 3rem);
+                --h2-size: clamp(1.2rem, 3.5vw, 2rem);
+            }
+        }
+
+        /* Very short viewports (< 600px height) */
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 2.5vw, 1.5rem);
+                --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+                --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+                --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+            }
+            .nav-dots, .keyboard-hint, .decorative {
+                display: none;
+            }
+        }
+
+        /* Extremely short (< 500px height) */
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2vw, 1rem);
+                --title-size: clamp(1rem, 3.5vw, 1.75rem);
+                --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
+                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+            }
+        }
+
+        /* Narrow viewports (< 600px width) */
+        @media (max-width: 600px) {
+            :root {
+                --title-size: clamp(1.5rem, 8vw, 3rem);
+            }
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+
+        /* === END VIEWPORT-BASE.CSS === */
+
+        /* ===========================================
+           GLOBAL SLIDE STYLES
+           =========================================== */
+        body {
+            background: var(--bg-cream);
+            font-family: var(--font-body);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .slide {
+            background: var(--bg-cream);
+            position: relative;
+        }
+
+        /* ===========================================
+           GEOMETRIC DECORATIONS
+           Abstract shapes for editorial personality
+           =========================================== */
+        .geo-circle {
+            position: absolute;
+            border: 2.5px solid var(--text-primary);
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .geo-line {
+            position: absolute;
+            height: 2.5px;
+            background: var(--accent-rust);
+            transform-origin: left;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .geo-dot {
+            position: absolute;
+            width: 8px; height: 8px;
+            background: var(--accent-rust);
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .geo-outline-rect {
+            position: absolute;
+            border: 2px solid var(--accent-warm);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .slide.visible .geo-circle {
+            animation: floatIn 0.9s var(--ease-out-expo) 0.5s forwards;
+        }
+        .slide.visible .geo-line {
+            animation: expandIn 0.7s var(--ease-out-expo) 0.6s forwards;
+        }
+        .slide.visible .geo-dot {
+            animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s forwards;
+        }
+        .slide.visible .geo-outline-rect {
+            animation: floatIn 1s var(--ease-out-expo) 0.7s forwards;
+        }
+
+        /* ===========================================
+           TYPOGRAPHY
+           =========================================== */
+        .eyebrow {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: var(--eyebrow-size);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent-rust);
+            margin-bottom: clamp(0.75rem, 1.5vh, 1.5rem);
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: var(--title-size);
+            line-height: 1.0;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: var(--h2-size);
+            line-height: 1.1;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+        }
+
+        h3 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: var(--h3-size);
+            line-height: 1.2;
+            color: var(--text-primary);
+        }
+
+        h1 em, h2 em {
+            font-style: italic;
+            color: var(--accent-rust);
+        }
+
+        .body-text {
+            font-family: var(--font-body);
+            font-weight: 400;
+            font-size: var(--body-size);
+            line-height: 1.65;
+            color: var(--text-secondary);
+            max-width: min(85%, 650px);
+        }
+
+        .cta-box {
+            display: inline-block;
+            border: 2px solid var(--text-primary);
+            padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(1.2rem, 2.5vw, 2rem);
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: var(--small-size);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-primary);
+        }
+
+        /* ===========================================
+           SLIDE LAYOUT: CENTERED (default)
+           =========================================== */
+        .centered-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: var(--slide-padding);
+            max-height: 100%;
+            overflow: hidden;
+        }
+
+        /* ===========================================
+           SLIDE LAYOUT: LEFT-ALIGNED
+           =========================================== */
+        .left-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: var(--slide-padding);
+            padding-right: 40%;
+            max-height: 100%;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .left-content { padding-right: var(--slide-padding); }
+        }
+
+        /* ===========================================
+           SLIDE LAYOUT: SPLIT
+           =========================================== */
+        .split-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: var(--slide-padding);
+            gap: clamp(2rem, 4vw, 4rem);
+            max-height: 100%;
+            overflow: hidden;
+        }
+        .split-left, .split-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .split-content { flex-direction: column; gap: clamp(1rem, 2vw, 2rem); }
+        }
+
+        /* ===========================================
+           BULLET LIST STYLING
+           =========================================== */
+        .lesson-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.5rem, 1.2vh, 1rem);
+        }
+
+        .lesson-list li {
+            font-family: var(--font-body);
+            font-size: var(--body-size);
+            line-height: 1.5;
+            color: var(--text-secondary);
+            padding-left: clamp(1rem, 2vw, 1.5rem);
+            position: relative;
+        }
+
+        .lesson-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: clamp(0.45rem, 0.7vw, 0.55rem);
+            width: 6px; height: 6px;
+            background: var(--accent-rust);
+            border-radius: 50%;
+        }
+
+        /* ===========================================
+           QUOTE STYLING
+           =========================================== */
+        .quote-block {
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-style: italic;
+            font-size: clamp(1.2rem, 2.8vw, 2.2rem);
+            line-height: 1.35;
+            color: var(--text-primary);
+            max-width: min(85%, 700px);
+            position: relative;
+            padding-left: clamp(1.5rem, 3vw, 2.5rem);
+        }
+
+        .quote-block::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: var(--accent-rust);
+        }
+
+        .quote-attribution {
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            margin-top: clamp(0.75rem, 1.5vh, 1.5rem);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ===========================================
+           SECTION NUMBER (large, faded)
+           =========================================== */
+        .section-num {
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: clamp(5rem, 15vw, 14rem);
+            color: rgba(200, 90, 58, 0.06);
+            line-height: 1;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           BOOK CARDS
+           =========================================== */
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(1rem, 2vw, 2rem);
+            max-width: min(90%, 800px);
+        }
+
+        @media (max-width: 600px) {
+            .book-grid { grid-template-columns: 1fr; }
+        }
+
+        .book-card {
+            background: var(--bg-warm);
+            padding: clamp(1rem, 2vw, 1.8rem);
+            border-radius: clamp(8px, 1vw, 12px);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.3rem, 0.6vh, 0.6rem);
+        }
+
+        .book-card .book-title {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(0.85rem, 1.3vw, 1.1rem);
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .book-card .book-author {
+            font-family: var(--font-body);
+            font-size: var(--small-size);
+            color: var(--text-muted);
+        }
+
+        .book-card .book-why {
+            font-family: var(--font-body);
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            line-height: 1.45;
+            margin-top: clamp(0.2rem, 0.4vh, 0.4rem);
+        }
+
+        /* ===========================================
+           CASH FLOW TABLE
+           =========================================== */
+        .cashflow-table {
+            width: 100%;
+            max-width: min(90vw, 900px);
+            border-collapse: collapse;
+            font-family: var(--font-body);
+            font-size: clamp(0.6rem, 1vw, 0.8rem);
+        }
+
+        .cashflow-table th {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            color: var(--text-muted);
+            padding: clamp(0.4rem, 0.8vh, 0.7rem) clamp(0.5rem, 1vw, 1rem);
+            border-bottom: 2px solid var(--text-primary);
+            text-align: right;
+        }
+
+        .cashflow-table th:first-child { text-align: left; }
+
+        .cashflow-table td {
+            padding: clamp(0.3rem, 0.6vh, 0.5rem) clamp(0.5rem, 1vw, 1rem);
+            border-bottom: 1px solid var(--accent-warm);
+            text-align: right;
+            color: var(--text-secondary);
+        }
+
+        .cashflow-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .cashflow-table tr.total-row td {
+            border-top: 2px solid var(--text-primary);
+            border-bottom: none;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .positive { color: var(--accent-teal) !important; }
+        .negative { color: var(--accent-rust) !important; }
+
+        /* ===========================================
+           DIAGRAM: TWO PLANES
+           =========================================== */
+        .planes-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(1rem, 3vw, 3rem);
+            max-width: min(90%, 750px);
+        }
+
+        .plane-box {
+            flex: 1;
+            background: var(--bg-warm);
+            border-radius: clamp(8px, 1vw, 14px);
+            padding: clamp(1rem, 2vw, 2rem);
+            text-align: center;
+            position: relative;
+        }
+
+        .plane-box.old { border: 2px dashed var(--accent-warm); }
+        .plane-box.new { border: 2px solid var(--accent-rust); }
+
+        .plane-box h3 {
+            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+            margin-bottom: clamp(0.3rem, 0.5vh, 0.5rem);
+        }
+
+        .plane-box p {
+            font-size: var(--small-size);
+            color: var(--text-muted);
+        }
+
+        .plane-arrow {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            color: var(--accent-rust);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .plane-label {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: var(--small-size);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-rust);
+            text-align: center;
+            margin-top: clamp(0.5rem, 1vh, 1rem);
+        }
+
+        /* ===========================================
+           ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger children */
+        .slide.visible .reveal:nth-child(1) { transition-delay: 0.05s; }
+        .slide.visible .reveal:nth-child(2) { transition-delay: 0.15s; }
+        .slide.visible .reveal:nth-child(3) { transition-delay: 0.25s; }
+        .slide.visible .reveal:nth-child(4) { transition-delay: 0.35s; }
+        .slide.visible .reveal:nth-child(5) { transition-delay: 0.45s; }
+        .slide.visible .reveal:nth-child(6) { transition-delay: 0.55s; }
+
+        @keyframes floatIn {
+            from { opacity: 0; transform: scale(0.5) rotate(-15deg); }
+            to { opacity: 1; transform: scale(1) rotate(0); }
+        }
+        @keyframes expandIn {
+            from { opacity: 0; transform: scaleX(0); }
+            to { opacity: 1; transform: scaleX(1); }
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* ===========================================
+           PROGRESS BAR
+           =========================================== */
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            background: var(--accent-rust);
+            z-index: 1000;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        /* ===========================================
+           NAV DOTS
+           =========================================== */
+        .nav-dots {
+            position: fixed;
+            right: clamp(1rem, 2vw, 2rem);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(6px, 1vh, 10px);
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--accent-warm);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            padding: 0;
+        }
+
+        .nav-dot.active {
+            background: var(--accent-rust);
+            transform: scale(1.3);
+        }
+
+        .nav-dot:hover { background: var(--accent-rust); }
+    </style>
+</head>
+<body>
+
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Navigation dots -->
+    <nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+
+    <!-- ===========================================
+         SLIDE 1: TITLE
+         =========================================== -->
+    <section class="slide" id="slide-1">
+        <div class="geo-circle" style="top: 8%; right: 10%; width: clamp(60px, 10vw, 120px); height: clamp(60px, 10vw, 120px);"></div>
+        <div class="geo-line" style="bottom: 18%; left: 6%; width: clamp(80px, 14vw, 180px);"></div>
+        <div class="geo-dot" style="bottom: 17%; left: calc(6% + clamp(85px, 14vw, 185px));"></div>
+        <div class="centered-content">
+            <p class="eyebrow reveal">UNCW &middot; AI & Entrepreneurship</p>
+            <h1 class="reveal">Build It.<br><em>Break It.</em><br>Sell It.</h1>
+            <p class="body-text reveal" style="margin-top: var(--content-gap); text-align: center;">A full-circle journey from UNCW student to founder to acquisition — and what I wish someone had told me.</p>
+            <div class="cta-box reveal" style="margin-top: var(--content-gap);">Matt Cimino</div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 2: THE JOURNEY (overview)
+         =========================================== -->
+    <section class="slide" id="slide-2">
+        <div class="section-num" style="top: 5%; right: 8%;">01</div>
+        <div class="geo-outline-rect" style="bottom: 10%; right: 8%; width: clamp(60px, 8vw, 100px); height: clamp(40px, 5vw, 70px);"></div>
+        <div class="left-content">
+            <p class="eyebrow reveal">My Journey</p>
+            <h2 class="reveal">From dorm room ideas<br>to <em>acquisition</em></h2>
+            <ul class="lesson-list reveal" style="margin-top: var(--content-gap);">
+                <li>Started with the entrepreneurial itch right here at UNCW</li>
+                <li>Built Exit Intel — got to $2M revenue, but couldn't scale past it</li>
+                <li>Rebuilt from scratch as Amped — a true SaaS platform</li>
+                <li>Grew Amped, acquired by Intuit Mailchimp</li>
+                <li>Now leading at Intuit — and building what's next</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3: THE TWO PLANES
+         =========================================== -->
+    <section class="slide" id="slide-3">
+        <div class="geo-circle" style="top: 12%; left: 5%; width: clamp(40px, 6vw, 80px); height: clamp(40px, 6vw, 80px);"></div>
+        <div class="centered-content">
+            <p class="eyebrow reveal">The Pivot</p>
+            <h2 class="reveal">Two planes, <em>mid-air</em></h2>
+            <p class="body-text reveal" style="text-align: center; margin-top: var(--element-gap);">We were flying one plane and had to build the other — then jump.</p>
+            <div class="planes-diagram reveal" style="margin-top: var(--content-gap);">
+                <div class="plane-box old">
+                    <h3>Exit Intel</h3>
+                    <p>$2M revenue<br>Couldn't scale</p>
+                </div>
+                <div class="plane-arrow">→</div>
+                <div class="plane-box new">
+                    <h3>Amped</h3>
+                    <p>True SaaS<br>Built to scale</p>
+                </div>
+            </div>
+            <p class="plane-label reveal">Be mindful about how your business will scale into the future</p>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 4: BUSINESS PARTNERS
+         =========================================== -->
+    <section class="slide" id="slide-4">
+        <div class="section-num" style="bottom: 5%; left: 5%;">02</div>
+        <div class="geo-line" style="top: 15%; right: 8%; width: clamp(60px, 10vw, 140px);"></div>
+        <div class="geo-dot" style="top: 14.5%; right: calc(8% + clamp(65px, 10vw, 145px));"></div>
+        <div class="left-content">
+            <p class="eyebrow reveal">Lesson Learned</p>
+            <h2 class="reveal">Be careful who you<br>get into <em>business</em> with</h2>
+            <ul class="lesson-list reveal" style="margin-top: var(--content-gap);">
+                <li>Don't go 50/50 with someone you don't fully trust</li>
+                <li>Watch for red flags — if the values don't align, that's a data point</li>
+                <li>I found fake invoices being deposited into a personal account</li>
+                <li>Getting him out was painful. The real question: do they share your values?</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 5: HIRING & VALUES
+         =========================================== -->
+    <section class="slide" id="slide-5">
+        <div class="section-num" style="top: 5%; right: 8%;">03</div>
+        <div class="geo-outline-rect" style="top: 20%; right: 12%; width: clamp(50px, 7vw, 90px); height: clamp(50px, 7vw, 90px);"></div>
+        <div class="left-content">
+            <p class="eyebrow reveal">Team Building</p>
+            <h2 class="reveal">Hire the best.<br><em>Values</em> are everything.</h2>
+            <ul class="lesson-list reveal" style="margin-top: var(--content-gap);">
+                <li>When the business starts working, hire the absolute best people you can</li>
+                <li>Integrity is table stakes — no exceptions</li>
+                <li>If I sensed dishonesty, I shut it down immediately</li>
+                <li>Practice Radical Candor — care personally, challenge directly</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 6: RADICAL CANDOR QUOTE
+         =========================================== -->
+    <section class="slide" id="slide-6">
+        <div class="geo-circle" style="bottom: 15%; right: 10%; width: clamp(50px, 8vw, 100px); height: clamp(50px, 8vw, 100px);"></div>
+        <div class="geo-dot" style="top: 20%; left: 12%;"></div>
+        <div class="centered-content">
+            <div class="quote-block reveal">
+                "Why didn't you tell me?"
+            </div>
+            <p class="quote-attribution reveal">— The wake-up call from Radical Candor by Kim Scott</p>
+            <p class="body-text reveal" style="text-align: center; margin-top: var(--content-gap);">She had high expectations for a hire. He wasn't performing. She kept not saying anything. When she finally had to let him go — that was his response. She should have been telling him all along.</p>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 7: GET HUNGRY
+         =========================================== -->
+    <section class="slide" id="slide-7">
+        <div class="section-num" style="top: 5%; right: 8%;">04</div>
+        <div class="geo-line" style="bottom: 12%; left: 5%; width: clamp(100px, 18vw, 220px);"></div>
+        <div class="left-content">
+            <p class="eyebrow reveal">Scaling</p>
+            <h2 class="reveal">You gotta get<br><em>hungry</em></h2>
+            <ul class="lesson-list reveal" style="margin-top: var(--content-gap);">
+                <li>Starting over from scratch after Exit Intel was brutal</li>
+                <li>I was hanging on sales, relying on the business, not putting myself out there</li>
+                <li>The most invaluable experience — doing the sales calls, building partnerships</li>
+                <li>Go talk to 20 customers. It's stereotypical advice because it absolutely works</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 8: GET CLOSE TO YOUR CUSTOMER
+         =========================================== -->
+    <section class="slide" id="slide-8">
+        <div class="section-num" style="bottom: 5%; left: 5%;">05</div>
+        <div class="geo-circle" style="top: 10%; right: 8%; width: clamp(45px, 7vw, 85px); height: clamp(45px, 7vw, 85px);"></div>
+        <div class="geo-outline-rect" style="bottom: 20%; right: 15%; width: clamp(40px, 5vw, 70px); height: clamp(30px, 4vw, 55px);"></div>
+        <div class="left-content">
+            <p class="eyebrow reveal">Customer Obsession</p>
+            <h2 class="reveal">Get <em>close</em> to<br>your customer</h2>
+            <ul class="lesson-list reveal" style="margin-top: var(--content-gap);">
+                <li>A little consulting alongside your product isn't a bad thing</li>
+                <li>The product has to scale without you — but knowing what good looks like is an edge</li>
+                <li>Become an expert in helping your customers deliver results</li>
+                <li>Use that expertise to tailor the software for their success</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 9: YOU DON'T NEED PERMISSION
+         =========================================== -->
+    <section class="slide" id="slide-9">
+        <div class="geo-dot" style="top: 25%; right: 18%;"></div>
+        <div class="geo-line" style="top: 25.5%; right: 19%; width: clamp(40px, 6vw, 80px);"></div>
+        <div class="centered-content">
+            <p class="eyebrow reveal">Just Go</p>
+            <h1 class="reveal" style="font-size: clamp(2rem, 5.5vw, 4.5rem);">You don't need<br><em>permission.</em></h1>
+            <ul class="lesson-list reveal" style="margin-top: var(--content-gap); text-align: left; max-width: min(80%, 550px);">
+                <li>Register the LLC and charge someone money for something</li>
+                <li>Stripe, Lovable, Cursor, Claude Code — the tools are incredible right now</li>
+                <li>Be unbelievably curious: What is possible? How could I do that?</li>
+                <li>Build something, test it, see if people will pay</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 10: BE CURIOUS + HELP OTHERS
+         =========================================== -->
+    <section class="slide" id="slide-10">
+        <div class="section-num" style="top: 5%; right: 8%;">06</div>
+        <div class="geo-circle" style="bottom: 12%; left: 6%; width: clamp(35px, 5vw, 65px); height: clamp(35px, 5vw, 65px);"></div>
+        <div class="split-content">
+            <div class="split-left">
+                <p class="eyebrow reveal">Be Curious</p>
+                <h2 class="reveal">Learn from<br><em>others</em></h2>
+                <p class="body-text reveal" style="margin-top: var(--element-gap);">Reach out. Most people who've done it will say "grab coffee, shoot me a question." Take them all up on that.</p>
+            </div>
+            <div class="split-right">
+                <p class="eyebrow reveal">Help Others</p>
+                <h2 class="reveal">Give <em>first</em></h2>
+                <p class="body-text reveal" style="margin-top: var(--element-gap);">For me it's always been about helping other people be successful. If I can help them succeed, I'll be successful in the process.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 11: PERSONAL DEVELOPMENT
+         =========================================== -->
+    <section class="slide" id="slide-11">
+        <div class="section-num" style="bottom: 5%; left: 5%;">07</div>
+        <div class="geo-outline-rect" style="top: 15%; right: 10%; width: clamp(55px, 8vw, 95px); height: clamp(35px, 5vw, 60px);"></div>
+        <div class="left-content">
+            <p class="eyebrow reveal">Level Up</p>
+            <h2 class="reveal">Optimize your<br><em>routine</em></h2>
+            <ul class="lesson-list reveal" style="margin-top: var(--content-gap);">
+                <li>How are you leveling up personally? You've got to continually be doing that</li>
+                <li>Is your daily schedule optimized for highest impact?</li>
+                <li>Too much time on social media? Get off of it</li>
+                <li>Invest in real-life relationships — that's where the real returns are</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 12: LEADERSHIP & SELLING
+         =========================================== -->
+    <section class="slide" id="slide-12">
+        <div class="geo-circle" style="top: 10%; left: 8%; width: clamp(50px, 8vw, 90px); height: clamp(50px, 8vw, 90px);"></div>
+        <div class="geo-dot" style="bottom: 20%; right: 15%;"></div>
+        <div class="centered-content">
+            <p class="eyebrow reveal">Leadership</p>
+            <h1 class="reveal" style="font-size: clamp(1.8rem, 5vw, 4rem);">Lead the mission.<br><em>Learn to sell.</em></h1>
+            <p class="body-text reveal" style="text-align: center; margin-top: var(--content-gap);">Get people fired up. Set the vision. Inspire them to come along on the journey. And learn how to sell — that's the most important thing you can learn as an entrepreneur.</p>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 13: SYSTEMS (E-Myth + EOS)
+         =========================================== -->
+    <section class="slide" id="slide-13">
+        <div class="section-num" style="top: 5%; right: 8%;">08</div>
+        <div class="geo-line" style="bottom: 15%; right: 8%; width: clamp(70px, 12vw, 160px);"></div>
+        <div class="geo-dot" style="bottom: 14.5%; right: calc(8% + clamp(75px, 12vw, 165px));"></div>
+        <div class="left-content">
+            <p class="eyebrow reveal">Systems</p>
+            <h2 class="reveal">Business is all<br>about <em>systems</em></h2>
+            <ul class="lesson-list reveal" style="margin-top: var(--content-gap);">
+                <li>Every business is a function of the systems you set up to scale</li>
+                <li>Three types: the entrepreneur, the manager, and the technician</li>
+                <li>It cannot be about you — build it so it runs without you</li>
+                <li>Once you get some scale, look at EOS for solid foundations</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 14: CASH FLOW
+         =========================================== -->
+    <section class="slide" id="slide-14">
+        <div class="section-num" style="top: 3%; left: 5%;">09</div>
+        <div class="centered-content">
+            <p class="eyebrow reveal">The Discipline</p>
+            <h2 class="reveal">Cash flow is <em>everything</em></h2>
+            <p class="body-text reveal" style="text-align: center; margin-top: var(--element-gap); margin-bottom: var(--content-gap);">If you've never seen anything like this — this is absolutely what you need for every business.</p>
+            <div class="reveal" style="width: 100%; overflow-x: auto;">
+                <table class="cashflow-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Jan</th>
+                            <th>Feb</th>
+                            <th>Mar</th>
+                            <th>Apr</th>
+                            <th>May</th>
+                            <th>Jun</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Revenue</td>
+                            <td>$2,400</td>
+                            <td>$3,800</td>
+                            <td>$5,200</td>
+                            <td>$7,100</td>
+                            <td>$9,500</td>
+                            <td>$12,800</td>
+                        </tr>
+                        <tr>
+                            <td>Expenses</td>
+                            <td class="negative">($4,200)</td>
+                            <td class="negative">($4,500)</td>
+                            <td class="negative">($4,800)</td>
+                            <td class="negative">($5,100)</td>
+                            <td class="negative">($5,400)</td>
+                            <td class="negative">($5,800)</td>
+                        </tr>
+                        <tr>
+                            <td>Net</td>
+                            <td class="negative">($1,800)</td>
+                            <td class="negative">($700)</td>
+                            <td class="positive">$400</td>
+                            <td class="positive">$2,000</td>
+                            <td class="positive">$4,100</td>
+                            <td class="positive">$7,000</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>Cash Balance</td>
+                            <td>$8,200</td>
+                            <td>$7,500</td>
+                            <td>$7,900</td>
+                            <td>$9,900</td>
+                            <td>$14,000</td>
+                            <td>$21,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 15: BOOKS
+         =========================================== -->
+    <section class="slide" id="slide-15">
+        <div class="geo-outline-rect" style="top: 12%; left: 6%; width: clamp(45px, 6vw, 75px); height: clamp(45px, 6vw, 75px);"></div>
+        <div class="geo-dot" style="bottom: 18%; right: 10%;"></div>
+        <div class="centered-content">
+            <p class="eyebrow reveal">Required Reading</p>
+            <h2 class="reveal">Three books that<br><em>changed</em> everything</h2>
+            <div class="book-grid reveal" style="margin-top: var(--content-gap);">
+                <div class="book-card">
+                    <span class="book-title">Radical Candor</span>
+                    <span class="book-author">Kim Scott</span>
+                    <span class="book-why">How to care personally while challenging directly. Changed how I give feedback.</span>
+                </div>
+                <div class="book-card">
+                    <span class="book-title">The E-Myth Revisited</span>
+                    <span class="book-author">Michael Gerber</span>
+                    <span class="book-why">Every business is a system. You're the entrepreneur, not the technician.</span>
+                </div>
+                <div class="book-card">
+                    <span class="book-title">Traction</span>
+                    <span class="book-author">Gino Wickman</span>
+                    <span class="book-why">The EOS framework. Great foundations for when you start to scale.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 16: THE ROLLER COASTER
+         =========================================== -->
+    <section class="slide" id="slide-16">
+        <div class="geo-line" style="top: 18%; right: 10%; width: clamp(80px, 12vw, 160px); transform: rotate(-15deg);"></div>
+        <div class="geo-dot" style="top: 30%; left: 8%;"></div>
+        <div class="geo-outline-rect" style="bottom: 15%; right: 6%; width: clamp(40px, 5vw, 65px); height: clamp(40px, 5vw, 65px);"></div>
+        <div class="centered-content">
+            <p class="eyebrow reveal">Persistence</p>
+            <h2 class="reveal">It's an absolute<br><em>roller coaster</em></h2>
+            <ul class="lesson-list reveal" style="margin-top: var(--content-gap); text-align: left; max-width: min(80%, 550px);">
+                <li>You will fail. A lot. Most ideas won't work — that's normal</li>
+                <li>The people who win are the ones crazy enough to keep going</li>
+                <li>Every successful founder has a graveyard of failed attempts behind them</li>
+                <li>Monday you'll feel unstoppable. Tuesday you'll want to quit. Wednesday you get back up</li>
+                <li>Good — keep going</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 17: NOW IS THE TIME
+         =========================================== -->
+    <section class="slide" id="slide-17">
+        <div class="geo-circle" style="top: 12%; left: 8%; width: clamp(50px, 7vw, 90px); height: clamp(50px, 7vw, 90px);"></div>
+        <div class="geo-dot" style="bottom: 22%; right: 15%;"></div>
+        <div class="centered-content">
+            <p class="eyebrow reveal">Zero Risk</p>
+            <h1 class="reveal" style="font-size: clamp(1.8rem, 5vw, 4rem);">You will <em>never</em> have<br>less to lose</h1>
+            <ul class="lesson-list reveal" style="margin-top: var(--content-gap); text-align: left; max-width: min(80%, 550px);">
+                <li>No mortgage. No kids. No one depending on your paycheck yet</li>
+                <li>Worst case? Move back in with your parents for 6 months</li>
+                <li>It will never be easier to take a swing than right now</li>
+                <li>Once you're in a 9-to-5 with a salary and benefits, the golden handcuffs go on fast</li>
+                <li>The window where you can bet on yourself with almost zero downside is right now — don't waste it</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 18: CLOSING
+         =========================================== -->
+    <section class="slide" id="slide-18">
+        <div class="geo-circle" style="top: 10%; right: 12%; width: clamp(70px, 11vw, 130px); height: clamp(70px, 11vw, 130px);"></div>
+        <div class="geo-line" style="bottom: 20%; left: 8%; width: clamp(100px, 16vw, 200px);"></div>
+        <div class="geo-dot" style="bottom: 19.5%; left: calc(8% + clamp(105px, 16vw, 205px));"></div>
+        <div class="centered-content">
+            <p class="eyebrow reveal">One Last Thing</p>
+            <h1 class="reveal">There's no better<br>time than <em>right now.</em></h1>
+            <p class="body-text reveal" style="text-align: center; margin-top: var(--content-gap);">Don't make the excuse of "I'll do it when I'm older." You've got to grind it out. It's going to be super hard. But go build something.</p>
+            <div class="cta-box reveal" style="margin-top: var(--content-gap);">Go make it happen</div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+       SLIDE PRESENTATION CONTROLLER
+       =========================================== -->
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.currentSlide = 0;
+                this.isAnimating = false; // Lock during programmatic scrolls
+
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.setupTouchNav();
+                this.setupProgressBar();
+                this.setupNavDots();
+                this.setupScrollNav();
+
+                // Mark first slide visible
+                this.slides[0].classList.add('visible');
+            }
+
+            /* --- Intersection Observer: trigger animations only --- */
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            // Only sync currentSlide when NOT in a programmatic scroll
+                            if (!this.isAnimating) {
+                                const idx = Array.from(this.slides).indexOf(entry.target);
+                                if (idx !== -1) {
+                                    this.currentSlide = idx;
+                                    this.updateNavDots();
+                                    this.updateProgressBar();
+                                }
+                            }
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            /* --- Keyboard Navigation --- */
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (e) => {
+                    if (this.isAnimating) return;
+                    switch(e.key) {
+                        case 'ArrowDown':
+                        case 'ArrowRight':
+                        case ' ':
+                        case 'PageDown':
+                            e.preventDefault();
+                            this.goToSlide(this.currentSlide + 1);
+                            break;
+                        case 'ArrowUp':
+                        case 'ArrowLeft':
+                        case 'PageUp':
+                            e.preventDefault();
+                            this.goToSlide(this.currentSlide - 1);
+                            break;
+                        case 'Home':
+                            e.preventDefault();
+                            this.goToSlide(0);
+                            break;
+                        case 'End':
+                            e.preventDefault();
+                            this.goToSlide(this.slides.length - 1);
+                            break;
+                    }
+                });
+            }
+
+            /* --- Touch / Swipe Navigation --- */
+            setupTouchNav() {
+                let touchStartY = 0;
+                let touchStartX = 0;
+
+                document.addEventListener('touchstart', (e) => {
+                    touchStartY = e.touches[0].clientY;
+                    touchStartX = e.touches[0].clientX;
+                }, { passive: true });
+
+                document.addEventListener('touchend', (e) => {
+                    if (this.isAnimating) return;
+                    const deltaY = touchStartY - e.changedTouches[0].clientY;
+                    const deltaX = touchStartX - e.changedTouches[0].clientX;
+
+                    if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 50) {
+                        if (deltaY > 0) {
+                            this.goToSlide(this.currentSlide + 1);
+                        } else {
+                            this.goToSlide(this.currentSlide - 1);
+                        }
+                    }
+                }, { passive: true });
+            }
+
+            /* --- Mouse Wheel Navigation --- */
+            setupScrollNav() {
+                // Use non-passive so we can preventDefault to stop scroll-snap from competing
+                document.addEventListener('wheel', (e) => {
+                    e.preventDefault();
+                    if (this.isAnimating) return;
+
+                    if (e.deltaY > 0) {
+                        this.goToSlide(this.currentSlide + 1);
+                    } else if (e.deltaY < 0) {
+                        this.goToSlide(this.currentSlide - 1);
+                    }
+                }, { passive: false });
+            }
+
+            /* --- Progress Bar --- */
+            setupProgressBar() {
+                this.progressBar = document.getElementById('progressBar');
+                this.updateProgressBar();
+            }
+
+            updateProgressBar() {
+                if (this.progressBar) {
+                    const progress = ((this.currentSlide + 1) / this.slides.length) * 100;
+                    this.progressBar.style.width = progress + '%';
+                }
+            }
+
+            /* --- Navigation Dots --- */
+            setupNavDots() {
+                const container = document.getElementById('navDots');
+                if (!container) return;
+
+                this.slides.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    dot.addEventListener('click', () => this.goToSlide(i));
+                    container.appendChild(dot);
+                });
+            }
+
+            updateNavDots() {
+                const dots = document.querySelectorAll('.nav-dot');
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === this.currentSlide);
+                });
+            }
+
+            /* --- Go to specific slide --- */
+            goToSlide(index) {
+                if (index < 0 || index >= this.slides.length) return;
+                if (this.isAnimating) return;
+
+                this.isAnimating = true;
+                this.currentSlide = index;
+                this.updateNavDots();
+                this.updateProgressBar();
+
+                this.slides[index].scrollIntoView({ behavior: 'smooth' });
+
+                // Unlock after scroll animation completes
+                // scrollend is ideal but not universal; fall back to timeout
+                const unlock = () => {
+                    this.isAnimating = false;
+                    document.removeEventListener('scrollend', unlock);
+                };
+
+                if ('onscrollend' in window) {
+                    document.addEventListener('scrollend', unlock, { once: true });
+                    // Safety timeout in case scrollend doesn't fire
+                    setTimeout(unlock, 1200);
+                } else {
+                    setTimeout(unlock, 700);
+                }
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            new SlidePresentation();
+        });
+    </script>
+</body>
+</html>
