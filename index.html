@@ -286,6 +286,32 @@
             color: var(--text-primary);
         }
 
+        .speaker-intro {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.75rem, 1.5vw, 1.25rem);
+        }
+
+        .speaker-intro .headshot {
+            width: clamp(56px, 8vw, 88px);
+            height: clamp(56px, 8vw, 88px);
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2.5px solid var(--accent-rust);
+            max-height: none;
+        }
+
+        .speaker-intro .speaker-name {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: var(--small-size);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-primary);
+            border: 2px solid var(--text-primary);
+            padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(1.2rem, 2.5vw, 2rem);
+        }
+
         /* ===========================================
            SLIDE LAYOUT: CENTERED (default)
            =========================================== */
@@ -512,6 +538,13 @@
         /* ===========================================
            DIAGRAM: TWO PLANES
            =========================================== */
+        .planes-diagram-img {
+            width: min(90%, 700px);
+            max-height: min(50vh, 400px);
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
         .planes-diagram {
             display: flex;
             align-items: center;
@@ -658,9 +691,12 @@
         <div class="geo-dot" style="bottom: 17%; left: calc(6% + clamp(85px, 14vw, 185px));"></div>
         <div class="centered-content">
             <p class="eyebrow reveal">UNCW &middot; AI & Entrepreneurship</p>
-            <h1 class="reveal">Build It.<br><em>Break It.</em><br>Sell It.</h1>
+            <h1 class="reveal">Help people.<br><em>Ship It.</em><br>Repeat.</h1>
             <p class="body-text reveal" style="margin-top: var(--content-gap); text-align: center;">A full-circle journey from UNCW student to founder to acquisition — and what I wish someone had told me.</p>
-            <div class="cta-box reveal" style="margin-top: var(--content-gap);">Matt Cimino</div>
+            <div class="speaker-intro reveal" style="margin-top: var(--content-gap);">
+                <img src="assets/headshot.png" alt="Matt Cimino" class="headshot">
+                <span class="speaker-name">Matt Cimino</span>
+            </div>
         </div>
     </section>
 
@@ -692,17 +728,7 @@
             <p class="eyebrow reveal">The Pivot</p>
             <h2 class="reveal">Two planes, <em>mid-air</em></h2>
             <p class="body-text reveal" style="text-align: center; margin-top: var(--element-gap);">We were flying one plane and had to build the other — then jump.</p>
-            <div class="planes-diagram reveal" style="margin-top: var(--content-gap);">
-                <div class="plane-box old">
-                    <h3>Exit Intel</h3>
-                    <p>$2M revenue<br>Couldn't scale</p>
-                </div>
-                <div class="plane-arrow">→</div>
-                <div class="plane-box new">
-                    <h3>Amped</h3>
-                    <p>True SaaS<br>Built to scale</p>
-                </div>
-            </div>
+            <img src="assets/exit-intel-to-amped.png" alt="Exit Intel biplane jumping to Amped jet - plane type denotes product capabilities and ability to scale" class="planes-diagram-img reveal" style="margin-top: var(--content-gap);">
             <p class="plane-label reveal">Be mindful about how your business will scale into the future</p>
         </div>
     </section>
