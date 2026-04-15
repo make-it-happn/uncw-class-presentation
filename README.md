@@ -47,4 +47,4 @@ In the Vercel project: Settings → Domains → add your domain and follow DNS i
 
 ## Related notes in personal OS
 
-Outline and context for the talk live in `personal-os` at `datasets/community/uncw/guest-lecture/outline.md`. The deck in this repo is the canonical hosted version.
+Outline and talk context only: `personal-os` at `datasets/community/uncw/guest-lecture/outline.md`. The HTML deck lives only in this repo (no duplicate under `personal-os`).
