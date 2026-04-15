@@ -695,6 +695,17 @@
             border-bottom: 1.5px solid var(--accent-warm);
             font-weight: 600;
         }
+
+        .cashflow-table tr.section-header td {
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--accent-warm);
+            padding-top: clamp(0.5rem, 0.9vh, 0.8rem);
+        }
+
+        .cashflow-table tr.section-header td:not(:first-child) {
+            color: transparent;
+        }
         .negative { color: var(--accent-rust) !important; }
 
         /* ===========================================
@@ -1126,6 +1137,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="total-row">
+                            <td>Beginning Balance</td>
+                            <td>$10,000</td>
+                            <td>$8,200</td>
+                            <td>$7,500</td>
+                            <td>$7,900</td>
+                            <td>$9,900</td>
+                            <td>$14,000</td>
+                        </tr>
+                        <tr class="section-header">
+                            <td>Revenue</td>
+                            <td></td><td></td><td></td><td></td><td></td><td></td>
+                        </tr>
                         <tr class="sub-row">
                             <td># Customers</td>
                             <td>12</td>
@@ -1145,13 +1169,17 @@
                             <td>$200</td>
                         </tr>
                         <tr class="subtotal-row">
-                            <td>Revenue</td>
+                            <td>Total Revenue</td>
                             <td>$2,400</td>
                             <td>$3,800</td>
                             <td>$5,200</td>
                             <td>$7,100</td>
                             <td>$9,500</td>
                             <td>$12,800</td>
+                        </tr>
+                        <tr class="section-header">
+                            <td>Expenses</td>
+                            <td></td><td></td><td></td><td></td><td></td><td></td>
                         </tr>
                         <tr class="sub-row">
                             <td>Payroll</td>
@@ -1190,7 +1218,7 @@
                             <td class="negative">($1,100)</td>
                         </tr>
                         <tr class="subtotal-row">
-                            <td>Expenses</td>
+                            <td>Total Expenses</td>
                             <td class="negative">($4,200)</td>
                             <td class="negative">($4,500)</td>
                             <td class="negative">($4,800)</td>
